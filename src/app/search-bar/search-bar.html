@@ -1,0 +1,39 @@
+<section class="search" id="search">
+  <div class="filter">
+    <div class="field">
+      <label>Brand</label>
+      <select [(ngModel)]="brand" (change)="searchAutoList()">
+        <option value="">All brands</option>
+        <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+      </select>
+    </div>
+    <button class="search-btn" (click)="searchAutoList()">Search</button>
+  </div>
+
+  <p class="count">{{ result.length }} vehicle(s) available</p>
+
+  <div class="grid">
+    <article *ngFor="let auto of result" class="card" [class.active]="selected === auto">
+      <div class="img">
+        <img [src]="'images/' + auto.photo" [alt]="auto.model" />
+      </div>
+
+      <div class="body">
+        <span class="brand">{{ auto.brand }}</span>
+        <h3>{{ auto.model }}</h3>
+
+        <div class="meta">
+          <span>{{ auto.power }} CV</span>
+          <span>{{ auto.availability }} in stock</span>
+        </div>
+
+        <div class="foot">
+          <strong>{{ auto.price }} DNT</strong>
+          <button class="view" (click)="selectedAuto(auto)">View more</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <p *ngIf="result.length === 0" class="empty">No vehicle found.</p>
+</section>
